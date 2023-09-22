@@ -1,0 +1,89 @@
+$azul-escuro-palette: (
+ 50: #e3f0f6,
+ 100: #badaeb,
+ 200: #91c3de,
+ 300: #6aacd1,
+ 400: #4e9bc9,
+ 500: #358cc2,
+ 600: #2a7fb6,
+ 700: #1f6ea5,
+ 800: #155e94,
+ 900: #054375,
+ contrast: (
+   50: rgba(black, 0.87),
+   100: rgba(black, 0.87),
+   200: rgba(black, 0.87),
+   300: rgba(black, 0.87),
+   400: white,
+   500: white,
+   600: white,
+   700: white,
+   800: white,
+   900: white,
+ )
+);
+
+$verde-palette: (
+  50: #f2fae8,
+  100: #def2c5,
+  200: #c8e9a0,
+  300: #b1e077,
+  400: #9fd856,
+  500: #8dd133,
+  600: #7cc12b,
+  700: #66ac20,
+  800: #519815,
+  900: #247600,
+  contrast: (
+    50: rgba(black, 0.87),
+    100: rgba(black, 0.87),
+    200: white,
+    300: white,
+    400: white,
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+  )
+);
+
+@use '@angular/material' as mat;
+@import '@angular/material/theming';
+@include mat-core();
+
+$tri-primary: mat-palette($azul-escuro-palette, 900);
+$tri-secondary: mat-palette($verde-palette, 500);
+$tri-warn: mat-palette($mat-red);
+
+$tri-theme: mat.define-light-theme((
+  color: (
+    primary: $tri-primary,
+    accent: $tri-secondary,
+    warn: $tri-warn,
+  ),
+  density: 0,
+));
+
+@include mat.core-theme($tri-theme);
+@include mat.all-component-themes($tri-theme);/* You can add global styles to this file, and also import other style files */
+
+@import url('https://fonts.googleapis.com/css2?family=Red+Hat+Display:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+* :not(mat-icon) {
+  font-family: 'Red Hat Display', sans-serif !important;
+  letter-spacing: normal;
+}
+h1 {
+  font-weight: 700 !important;
+  color:#054375 !important;
+  margin-bottom: 8px !important;
+}
+
+.botao-principal {
+  color: #054375 !important ;
+}
+
+

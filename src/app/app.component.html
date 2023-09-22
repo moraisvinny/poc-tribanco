@@ -1,0 +1,104 @@
+<div class="fade loading" *ngIf="isLoading">
+  <div class="spinner">
+    <mat-spinner></mat-spinner>
+  </div>
+</div>
+<mat-toolbar
+  color="primary"
+  style="height: 100px"
+  fxLayout="row"
+  fxLayoutAlign="start center"
+  fxLayoutGap="2em"
+>
+  <img src="/assets/logo-header-novo.svg" />
+  <a mat-button href="/"> Simulador de Crédito </a>
+</mat-toolbar>
+<div
+  fxLayout="column"
+  fxLayoutGap="1.5em"
+  fxLayoutAlign="start space-between"
+  class="m-20"
+>
+  <div>
+    <h1>Simule aqui o seu empréstimo!</h1>
+    <h3>Preencha o formulário abaixo</h3>
+  </div>
+  <form
+    (ngSubmit)="onSubmit()"
+    [formGroup]="formCredito"
+    fxLayout="column"
+    fxLayoutGap="1em"
+  >
+    <mat-form-field>
+      <mat-label>CNPJ</mat-label>
+      <input matInput formControlName="cnpj" mask="CPF_CNPJ" />
+      <mat-error>* Campo Obrigatório</mat-error>
+    </mat-form-field>
+    <div fxLayout="row" fxLayoutGap="1em">
+      <mat-form-field>
+        <mat-label>Porte Empresarial</mat-label>
+        <mat-select formControlName="porteEmpresa">
+          <!-- <mat-option value="MEI"> MEI </mat-option> -->
+          <mat-option value="MIC"> Micro </mat-option>
+          <mat-option value="PEQ"> Pequena </mat-option>
+          <mat-option value="MED"> Média </mat-option>
+          <mat-option value="GRD"> Grande </mat-option>
+        </mat-select>
+        <mat-error>* Campo Obrigatório</mat-error>
+      </mat-form-field>
+      <button
+        mat-icon-button
+        color="primary"
+        (click)="abreHelp()"
+        type="button"
+      >
+        <mat-icon>help</mat-icon>
+      </button>
+    </div>
+    <mat-form-field>
+      <mat-label>Faturamento Anual</mat-label>
+      <input matInput formControlName="faturamentoAnual" type="number"/>
+      <mat-error>* Campo Obrigatório</mat-error>
+    </mat-form-field>
+
+    <mat-label>
+      Sua empresa tem boa margem de lucro, poucas dívidas e documentação em dia?
+    </mat-label>
+    <mat-radio-group formControlName="situacaoMargemLucroCliente">
+      <mat-radio-button value="EXP"> Sim, excepcional </mat-radio-button>
+      <mat-radio-button value="CHL"> Estamos chegando lá </mat-radio-button>
+      <mat-radio-button value="MNS"> Mais ou menos </mat-radio-button>
+      <mat-radio-button value="INF"> Infelizmente não </mat-radio-button>
+    </mat-radio-group>
+    <mat-error
+      *ngIf="
+        formCredito.get('situacaoMargemLucroCliente')?.touched &&
+        formCredito.get('situacaoMargemLucroCliente')?.invalid
+      "
+      >Escolha uma opção acima</mat-error
+    >
+
+    <mat-form-field>
+      <mat-label>Tempo de Casa</mat-label>
+      <input matInput formControlName="tempoCasa" placeholder="Digite um valor em anos" type="number" />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>De quanto sua empresa precisa?</mat-label>
+      <input matInput formControlName="valorCredito" type="number" placeholder="Digite um valor entre R$5 mil e R$ 800 mil"/>
+      <mat-error>* Digite um valor entre R$5 mil e R$ 800 mil</mat-error>
+    </mat-form-field>
+    <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="2em">
+      <button mat-flat-button type="button" (click)="limparForm()">
+        Limpar
+      </button>
+      <button
+        mat-flat-button
+        type="submit"
+        color="accent"
+        class="botao-principal"
+      >
+        Simular Empréstimo
+      </button>
+    </div>
+  </form>
+</div>

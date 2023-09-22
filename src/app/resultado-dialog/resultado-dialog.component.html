@@ -1,0 +1,63 @@
+<h1 mat-dialog-title *ngIf="data.creditos.length > 0">
+  Estas são as linhas de crédito disponíveis para sua empresa
+</h1>
+<mat-dialog-content>
+  <div
+    fxLayout="row"
+    fxLayoutGap="1em"
+    style="margin-top: 1em"
+    *ngIf="data.creditos.length > 0"
+  >
+    <div
+      [ngClass]="{ 'linha-credito': !isLast }"
+      fxLayout="column"
+      fxLayoutAlign="center center"
+      *ngFor="let item of data.creditos; last as isLast"
+    >
+      <p>
+        <strong>Valor disponível: </strong>
+        {{ data.valorCredito | currency : "BRL" }}
+      </p>
+      <p>
+        <strong>Valor da Parcela: </strong>
+        {{ item.resultado / item.parcelas | currency : "BRL" }}
+      </p>
+      <p><strong>Prazo:</strong> {{ item.parcelas }} meses</p>
+      <button mat-flat-button color="accent" class="botao-principal">
+        Contratar
+      </button>
+      <small
+        >Valor total à prazo: {{ item.resultado | currency : "BRL" }}
+      </small>
+    </div>
+  </div>
+  <p style="margin: 2em 0" *ngIf="data.creditos.length > 0">
+    *Os valores utilizados na simulação não garantem as condições da
+    pré-aprovação do empréstimo.
+  </p>
+
+  <ng-container *ngIf="data.valorAntecipacao">
+    <h2 style="color: #054375">Que legal!</h2>
+    <p class="quebra-texto" style="width: 700px">
+      Além do crédito aprovado, sua empresa também tem direito a antecipação de
+      recebíveis com descontos incríveis! Veja abaixo.
+    </p>
+    <p>
+      <strong>Valor pré-aprovado: </strong>
+      {{ data.valorAntecipacao | currency : "BRL" }}
+    </p>
+    <a
+      href="https://www.tribanco.com.br/empresa/credito-financiamento/antecipacao-recebiveis/"
+      mat-flat-button
+      color="primary"
+      style="margin-top: 1em"
+    >
+      Clique aqui para saber mais!
+    </a>
+  </ng-container>
+
+  <ng-container *ngIf="data?.mensagem">
+    <h1>Que pena!</h1>
+    <p>{{ data.mensagem }}</p>
+  </ng-container>
+</mat-dialog-content>
